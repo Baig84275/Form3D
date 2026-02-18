@@ -39,9 +39,12 @@
     // Show success message
     showMessage('Thanks! Check your email for the installer link.', true);
 
-    // Optional: hide the form after submit (if you want)
-    // const hubspotWrap = document.getElementById('hubspotForm');
-    // if (hubspotWrap) hubspotWrap.style.display = 'none';
+    // Desktop: Open SketchUp Extension Store in NEW TAB
+    // And REFRESH the current page immediately (so user sees form upon return)
+    if (window.innerWidth > 768) {
+      window.open('https://extensions.sketchup.com/extension/3438e2e4-b335-48a9-835a-5bc70f3c841f/form3d-ai-furniture-to-3d-model-converter', '_blank');
+      window.location.reload();
+    }
   };
 
   // ============================================
@@ -70,39 +73,69 @@
     });
   }
 
+
+
   // ============================================
-  // Copy Link (Video Section)
+  // Gallery Lightbox
   // ============================================
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.querySelector('.lightbox__img');
+  const closeBtn = document.querySelector('.lightbox__close');
+  const prevBtn = document.querySelector('.lightbox__prev');
+  const nextBtn = document.querySelector('.lightbox__next');
+  const galleryCards = document.querySelectorAll('.gallery__card img');
 
-  const copyLinkBtn = document.querySelector('.video-chrome__copy');
-  const copyLinkOriginalHTML = copyLinkBtn ? copyLinkBtn.innerHTML : '';
+  let currentIndex = 0;
+  const totalImages = galleryCards.length;
 
-  if (copyLinkBtn) {
-    copyLinkBtn.addEventListener('click', function () {
-      const url = window.location.href;
-
-      navigator.clipboard
-        .writeText(url)
-        .then(function () {
-          copyLinkBtn.innerHTML = 'Copied!';
-          setTimeout(function () {
-            copyLinkBtn.innerHTML = copyLinkOriginalHTML;
-          }, 2000);
-        })
-        .catch(function () {
-          // Fallback for older browsers
-          const textarea = document.createElement('textarea');
-          textarea.value = url;
-          document.body.appendChild(textarea);
-          textarea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textarea);
-
-          copyLinkBtn.innerHTML = 'Copied!';
-          setTimeout(function () {
-            copyLinkBtn.innerHTML = copyLinkOriginalHTML;
-          }, 2000);
-        });
+  if (lightbox && galleryCards.length > 0) {
+    // Open Lightbox
+    galleryCards.forEach((img, index) => {
+      img.parentElement.addEventListener('click', () => {
+        currentIndex = index;
+        updateLightboxImage();
+        openLightbox();
+      });
     });
+
+    // Close Lightbox
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.querySelector('.lightbox__overlay').addEventListener('click', closeLightbox);
+
+    // Navigation
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+      updateLightboxImage();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % totalImages;
+      updateLightboxImage();
+    });
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevBtn.click();
+      if (e.key === 'ArrowRight') nextBtn.click();
+    });
+
+    function openLightbox() {
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // Prevent background scroll
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightboxImage() {
+      const src = galleryCards[currentIndex].src;
+      lightboxImg.src = src;
+    }
   }
 })();
