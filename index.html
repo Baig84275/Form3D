@@ -7,35 +7,19 @@
   <title>FORM3D - AI Furniture to 3D Model Converter</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://js-eu1.hsforms.net">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/Form3D-fav-icon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <!-- A) Header (Top Nav) -->
+  <!-- A) Header (Logo Only) -->
   <header class="header">
-    <div class="container header__inner">
+    <div class="container header__inner" style="justify-content: center;">
       <a href="#" class="header__logo" aria-label="FORM3D">
         <img class="header__logo-img" src="assets/form3d_upscaled_logo.png" alt="FORM3D">
       </a>
-      <nav class="header__nav" aria-label="Main navigation">
-        <div class="header__pill">
-          <ul class="header__menu">
-            <li><a href="#how-it-works">How it works</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-        <button class="header__toggle" type="button" aria-label="Toggle menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </nav>
-      <a href="#form" class="btn btn--primary header__cta">Try for free</a>
     </div>
   </header>
 
@@ -84,17 +68,40 @@
           </div>
           <p class="hero__trust-text">Trusted by 1,000+ Sketchup designers.</p>
         </div>
-        <h1 class="hero__headline">
-          Turn real furniture links into SketchUp-ready 3D models
-        </h1>
-        <p class="hero__subtext">
-          Get FORM3D for SketchUp. Enter your details to access the installer and start generating 3D models from
-          product links in seconds.
-        </p>
-        <div class="hero__form">
-          <div id="hubspotForm"></div>
+        <!-- Desktop Content -->
+        <div class="hero__content--desktop">
+          <h1 class="hero__headline">
+            Start creating professional 3D furniture now
+          </h1>
+          <p class="hero__subtext">
+            Get FORM3D for SketchUp. Enter your details to access the installer and start generating 3D models from
+            product links in seconds.
+          </p>
         </div>
 
+        <!-- Mobile Content -->
+        <div class="hero__content--mobile">
+          <h1 class="hero__headline">
+            Turn real furniture links into SketchUp-ready 3D models
+          </h1>
+          <p class="hero__subtext hero__subtext--bold">
+            Email me the SketchUp extension
+          </p>
+          <p class="hero__subtext">
+            Desktop-only SketchUp extension. Install when you’re back on your computer.
+          </p>
+        </div>
+
+        <div class="hero__form">
+          <div id="hubspotForm">
+            <!-- Skeleton Loader -->
+            <div class="form-skeleton">
+              <div class="form-skeleton__line" style="width: 100%; height: 40px; margin-bottom: 12px;"></div>
+              <div class="form-skeleton__line" style="width: 100%; height: 40px; margin-bottom: 12px;"></div>
+              <div class="form-skeleton__line" style="width: 30%; height: 40px;"></div>
+            </div>
+          </div>
+        </div>
         <script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
         <script>
           hbspt.forms.create({
@@ -102,6 +109,15 @@
             formId: "9b01f776-0ad1-4d72-be61-ae06903b4f36",
             region: "eu1",
             target: "#hubspotForm",
+            onFormReady: function ($form) {
+              // Hide/Remove skeleton
+              const skeleton = document.querySelector('.form-skeleton');
+              if (skeleton) skeleton.remove();
+
+              // Fade in the form
+              const container = document.querySelector('.hero__form');
+              container.classList.add('is-loaded');
+            },
             onFormSubmitted: function () {
               if (window.__FORM3D__HS && typeof window.__FORM3D__HS.onSubmitted === "function") {
                 window.__FORM3D__HS.onSubmitted();
@@ -109,8 +125,9 @@
             }
           });
         </script>
-
-
+        <p class="hero__subtext" style="padding-top: 10px; margin-bottom: 0px;">
+          Instant access. Free trial included.
+        </p>
       </div>
     </section>
 
@@ -124,17 +141,13 @@
                 <span></span><span></span><span></span>
               </span>
               <span class="video-chrome__title">FORM3D - AI Furniture to 3D Model Converter</span>
-              <button type="button" class="video-chrome__copy">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="9" y="9" width="13" height="13" rx="2" />
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                </svg>
-                Copy link
-              </button>
+
             </div>
             <div class="video-embed-wrapper">
               <div class="video-embed">
-                <iframe src="https://www.youtube.com/embed/qT7Mrpf7k7Y?si=elOeeDbj79s9k8RW" title="FORM3D Demo"
+                <iframe
+                  src="https://www.youtube.com/embed/qT7Mrpf7k7Y?si=elOeeDbj79s9k8RW&autoplay=1&mute=1&controls=0&loop=1&playlist=qT7Mrpf7k7Y"
+                  title="FORM3D Demo"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen></iframe>
               </div>
@@ -184,6 +197,30 @@
       </div>
     </section>
 
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" aria-hidden="true">
+      <div class="lightbox__overlay"></div>
+      <div class="lightbox__content">
+        <button class="lightbox__close" aria-label="Close">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <button class="lightbox__prev" aria-label="Previous">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button class="lightbox__next" aria-label="Next">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+        <img class="lightbox__img" src="" alt="Full size preview">
+      </div>
+    </div>
+
     <!-- E) Footer -->
     <footer class="footer">
       <div class="container footer__wrap">
@@ -193,13 +230,13 @@
           <img class="footer__wordmark is-mobile" src="assets/form3d_upscaled_logo for footer.png" alt="FORM3D">
 
           <div class="footer__social" aria-label="Social links">
-            <a href="#" aria-label="YouTube">
+            <a href="https://www.youtube.com/watch?v=kajdSsV9pIM" aria-label="YouTube" target="_blank" rel="noopener">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
               </svg>
             </a>
-            <a href="#" aria-label="Instagram">
+            <a href="https://www.instagram.com/form3d.ai/" aria-label="Instagram" target="_blank" rel="noopener">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="2" y="2" width="20" height="20" rx="5" />
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
@@ -209,12 +246,12 @@
           </div>
 
           <div class="footer__links" aria-label="Footer links">
-            <a href="#how-it-works">How it works</a>
-            <a href="#features">Features</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#faq">FAQ</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#contact">Contact</a>
+            <a href="https://www.form3d.ai#anchors-mix330wa">How it works</a>
+            <a href="https://www.form3d.ai#anchors-mix339yg">Features</a>
+            <a href="https://www.form3d.ai#anchors-mix3vobb">Gallery</a>
+            <a href="https://www.form3d.ai#anchors-mix3wjwm">FAQ</a>
+            <a href="https://www.form3d.ai/pricing">Pricing</a>
+            <a href="https://www.form3d.ai/contact">Contact</a>
           </div>
 
           <div aria-hidden="true"></div>
@@ -222,9 +259,12 @@
 
         <div class="footer__bottom">
           <div class="footer__legal">
-            <a href="#">Terms &amp; Conditions</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Tutorial</a>
+            <a href="https://www.notion.so/Terms-and-Conditions-1c3402ed8f5881bd9dace8ca9d191429?pvs=4" target="_blank"
+              rel="noopener">Terms &amp; Conditions</a>
+            <a href="https://www.notion.so/Terms-and-Conditions-1c3402ed8f5881bd9dace8ca9d191429?pvs=4" target="_blank"
+              rel="noopener">Privacy Policy</a>
+            <a href="https://www.notion.so/Terms-and-Conditions-1c3402ed8f5881bd9dace8ca9d191429?pvs=4" target="_blank"
+              rel="noopener">Tutorial</a>
           </div>
         </div>
       </div>
