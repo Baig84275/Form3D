@@ -41,10 +41,10 @@
 
     // Desktop: Open SketchUp Extension Store in NEW TAB
     // And REFRESH the current page immediately (so user sees form upon return)
-    if (window.innerWidth > 768) {
-      // window.open('https://extensions.sketchup.com/extension/3438e2e4-b335-48a9-835a-5bc70f3c841f/form3d-ai-furniture-to-3d-model-converter', '_blank');
-      window.location.reload();
-    }
+    // if (window.innerWidth > 768) {
+    //   // window.open('https://extensions.sketchup.com/extension/3438e2e4-b335-48a9-835a-5bc70f3c841f/form3d-ai-furniture-to-3d-model-converter', '_blank');
+    //   window.location.reload();
+    // }
   };
 
   // ============================================
